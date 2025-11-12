@@ -21,7 +21,7 @@ export function SignupForm() {
   }
 
   return (
-    <form action={'#'} className={'px-6 md:px-16 pb-6 py-8 gap-6 flex flex-col items-center justify-center'}>
+    <div className={'px-6 md:px-16 pb-6 py-8 gap-6 flex flex-col items-center justify-center'}>
       <Image src={'/assets/icons/logo/aeroedit-icon.svg'} alt={'AeroEdit'} width={80} height={80} />
       <div className={'text-[30px] leading-[36px] font-medium tracking-[-0.6px] text-center'}>Create an account</div>
       <AuthenticationForm
@@ -30,9 +30,9 @@ export function SignupForm() {
         password={password}
         onPasswordChange={(password) => setPassword(password)}
       />
-      <Button formAction={() => handleSignup()} type={'submit'} variant={'secondary'} className={'w-full'}>
+      <Button onClick={() => handleSignup()} type={'button'} variant={'secondary'} className={'w-full'}>
         Sign up
       </Button>
-    </form>
+    </div>
   );
 }

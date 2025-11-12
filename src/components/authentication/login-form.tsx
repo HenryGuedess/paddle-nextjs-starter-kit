@@ -16,7 +16,10 @@ export function LoginForm() {
   function handleLogin() {
     login({ email, password }).then((data) => {
       if (data?.error) {
-        toast({ description: 'Invalid email or password', variant: 'destructive' });
+        toast({
+          description: data?.message || 'Invalid email or password',
+          variant: 'destructive',
+        });
       }
     });
   }
@@ -30,7 +33,7 @@ export function LoginForm() {
   }
 
   return (
-    <form action={'#'} className={'px-6 md:px-16 pb-6 py-8 gap-6 flex flex-col items-center justify-center'}>
+    <div className={'px-6 md:px-16 pb-6 py-8 gap-6 flex flex-col items-center justify-center'}>
       <Image src={'/assets/icons/logo/aeroedit-icon.svg'} alt={'AeroEdit'} width={80} height={80} />
       <div className={'text-[30px] leading-[36px] font-medium tracking-[-0.6px] text-center'}>
         Log in to your account
@@ -49,9 +52,9 @@ export function LoginForm() {
         password={password}
         onPasswordChange={(password) => setPassword(password)}
       />
-      <Button formAction={() => handleLogin()} type={'submit'} variant={'secondary'} className={'w-full'}>
+      <Button onClick={() => handleLogin()} type={'button'} variant={'secondary'} className={'w-full'}>
         Log in
       </Button>
-    </form>
+    </div>
   );
 }

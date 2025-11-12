@@ -20,8 +20,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={'min-h-full dark'}>
-      <body className={inter.className}>
+    <html lang="en" className={'min-h-full dark'} suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
         {children}
         <Toaster />
       </body>

@@ -10,14 +10,15 @@ interface FormData {
 }
 export async function login(data: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error, data: authData } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    return { error: true };
+    console.error('Login error:', error.message, error.code);
+    return { error: true, message: error.message };
   }
 
   revalidatePath('/', 'layout');
-  redirect('/');
+  redirect('/dashboard');
 }
 
 export async function signInWithGithub() {
@@ -25,7 +26,7 @@ export async function signInWithGithub() {
   const { data } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: `https://paddle-billing.vercel.app/auth/callback`,
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/callback`,
     },
   });
   if (data.url) {
@@ -45,5 +46,5 @@ export async function loginAnonymously() {
   }
 
   revalidatePath('/', 'layout');
-  redirect('/');
+  redirect('/dashboard');
 }
